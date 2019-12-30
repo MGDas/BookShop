@@ -16,6 +16,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # another modules
+    'mptt',
+
     # my_app
     'shop'
 ]

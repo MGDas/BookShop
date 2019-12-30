@@ -42,6 +42,20 @@
       </div>
     </nav>
 
+    {% load mptt_tags %}
+    <ul>
+        {% recursetree genres %}
+            <li>
+                {{ node.name }}
+                {% if not node.is_leaf_node %}
+                    <ul class="children">
+                        {{ children }}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endrecursetree %}
+    </ul>
+
     <div class="container mt-5">
         <div class="row row-cols-1 row-cols-md-3">
             <div class="col mb-4">
