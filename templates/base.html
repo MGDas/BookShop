@@ -1,3 +1,6 @@
+{% load static %}
+{% load thumbnail %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,49 +56,34 @@
       </div>
     </nav>
 
-    {% load mptt_tags %}
-    <ul>
-        {% recursetree genres %}
-            <li>
-                {{ node.name }}
-                {% if not node.is_leaf_node %}
-                    <ul class="children">
-                        {{ children }}
-                    </ul>
-                {% endif %}
-            </li>
-        {% endrecursetree %}
-    </ul>
-
     <div class="container mt-5">
-        <div class="row row-cols-1 row-cols-md-3">
-            <div class="col mb-4">
-              <div class="card">
-                <img src="../media/cats.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col mb-4">
-              <div class="card">
-                <img src="../media/cats.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col mb-4">
-              <div class="card">
-                <img src="../media/cats.jpeg" class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
+        <div class="row row-cols-1 row-cols-md-5">
+            {% for book in books %}
+                {% if book.photo_url %}
+                    <div class="col mb-4">
+                        <div class="card">
+                            {% thumbnail book.photo_url "100x150" crop="center" as im %}
+                                <img src="{{ im.url }}" class="card-img-top" alt="...">
+                            {% endthumbnail %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.name }}</h5>
+                                <p class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col mb-4">
+                        <div class="card">
+                            <img src="{% static 'image/book.jpg' %}" width="150" height="250" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ book.name }}</h5>
+                                <p class="card-text"></p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
         </div>
     </div>
 

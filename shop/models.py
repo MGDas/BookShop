@@ -19,8 +19,8 @@ class BaseModel(models.Model):
 
 
 class Author(BaseModel):
-    name = models.CharField(max_length=250, db_index=True)
-    slug = models.SlugField(max_length=250, unique=True)
+    name = models.CharField(max_length=500, db_index=True)
+    slug = models.SlugField(max_length=500, unique=True)
 
     class Meta:
         db_table = 'author'
@@ -32,7 +32,8 @@ class Author(BaseModel):
 
 
 class Genre(MPTTModel, BaseModel):
-    name = models.CharField(max_length=100, db_index=True)
+    name = models.CharField(max_length=200, db_index=True)
+    slug = models.SlugField(max_length=200, blank=True, null=True)
     parent = TreeForeignKey(
         'self',
         on_delete=models.CASCADE,
@@ -63,14 +64,7 @@ class Book(BaseModel):
     )
 
     name = models.CharField(max_length=500, db_index=True)
-    description = models.TextField(blank=True)
-    public_year = models.CharField(max_length=4, blank=True)
-    count_page = models.PositiveSmallIntegerField(blank=True)
-    size = models.CharField(max_length=50, blank=True)
-    cover_type = models.CharField(max_length=100, blank=True)
-    weight = models.PositiveSmallIntegerField(blank=True)
-    age_rest = models.PositiveSmallIntegerField(blank=True)
-    photo = models.ImageField(upload_to=save_image_book, blank=True)
+    photo_url = models.URLField(max_length=500, blank=True, null=True)
 
     class Meta:
         db_table = 'book'

@@ -1,9 +1,10 @@
 from django.views.generic import ListView
-from shop.models import Genre
+from shop.models import Genre, Book
 from django.shortcuts import render
 
 
 class BaseView(ListView):
-    model = Genre
     template_name = 'base.html'
-    context_object_name = 'genres'
+    queryset = Book.objects.all()
+    context_object_name = 'books'
+    paginate_by = 15
