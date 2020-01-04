@@ -1,11 +1,16 @@
 from bs4 import BeautifulSoup
 
-HEADERS = {'User-Agent': 'Mozilla/5.0'}
-
 
 async def connect(url, session):
-    print(f"Connect to {url}")
-    async with session.get(url, headers=HEADERS) as response:
+    async with session.get(url) as response:
         html = await response.text()
-        soup = BeautifulSoup(html, "html.parser")
+        print(f"Connect to {url}")
+        return html
+
+
+async def connect_2(url, session):
+    async with session.get(url) as response:
+        html = await response.text()
+        soup = BeautifulSoup(html, 'lxml')
+        print(f"Connect to {url}")
         return soup
